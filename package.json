@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "dotenv": "^16.0.3",
+    "jsonschema": "^1.4.1",
+    "supertest": "^6.3.3"
+  },
+  "name": "tugaspekanan4",
+  "description": "TugasPekanan4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustiramadhan/TugasPekanan4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustiramadhan/TugasPekanan4/issues"
+  },
+  "homepage": "https://github.com/gustiramadhan/TugasPekanan4#readme"
+}
