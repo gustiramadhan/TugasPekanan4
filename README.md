@@ -1,5 +1,5 @@
-# TugasPekanan4
-**Mocha Chai - M Gusti Ramadhan**
+# Tugas Pekanan 4
+**API Automation - M Gusti Ramadhan**
 
 This code is a test suite written in Mocha and Chai to test the RESTful API endpoint of a web application. The test package includes various application functions, such as:
 - User Login
