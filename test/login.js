@@ -37,14 +37,14 @@ describe("Add Category", function(){
             description: 'makanan ringan tradisional'
         })
         .end(function(error, response){
-            //expect(response.status).to.equals(201)
+            expect(response.status).to.equals(201)
             expect(response.body.data).to.not.be.null;
             global.categoryIds = response.body.data.categoryId;
             //console.log(response.body)
             done();
         })
     })
-    it ("Failed Add Category", function(done){
+    it ("Failed Add Category. 'name' Cannot be empty", function(done){
         api.post("/categories")
         .set('Content-Type', 'Application/json')
         .set('Authorization', 'Bearer ' + global.token)
@@ -69,24 +69,22 @@ describe("Get Category", function(){
         .set('Authorization', 'Bearer ' + global.token)
 
         .end(function(error, response){
-            // expect(response.status).to.equals(200)
+            expect(response.status).to.equals(200)
             expect(global.categoryIds).to.not.be.null;
             // console.log(response.body)
             done();
         })
     })
-    // it ("Failed Get Category", function(done){
-    //     api.get("/categories/categoryIdsNotValid")
-    //     .set('Content-Type', 'Application/json')
-    //     .set('Authorization', 'Bearer ' + global.token)
+    it ("Failed to get Category. Category ID not found", function(done){
+        api.get("/categories/undefined")
+        .set('Content-Type', 'Application/json')
+        .set('Authorization', 'Bearer ' + global.token)
 
-    //     .end(function(error, response){
-    //         // expect(response.status).to.equals(200)
-    //         expect(global.categoryIds.message).to.equals('Category ID Not Valid');
-    //         // console.log(response.body)
-    //         done();
-    //     })
-    // })
+        .end(function(error, response){
+            expect(response.status).to.equals(404)
+            done();
+        })
+    })
 })
 
 
@@ -97,29 +95,53 @@ describe("Update Category", function(){
         .set('Content-Type', 'Application/json')
         .set('Authorization', 'Bearer ' + global.token)
         .send({
-            name: 'makanan berat',
-            description: 'makanan berat tradisional'
+            name: 'Minuman',
+            description: 'Minuman tradisional'
         })
         .end(function(error, response){
             expect(response.status).to.equals(200)
-            console.log(response.body)
+            done();
+        })
+    })
+
+    it ("Failed Update Category. 'name' Cannot be empty", function(done){
+        api.put("/categories/" + global.categoryIds)
+        .set('Content-Type', 'Application/json')
+        .set('Authorization', 'Bearer ' + global.token)
+        .send({
+            name: '',
+            description: 'Makanan Ringan'
+        })
+        .end(function(error, response){
+            expect(response.status).to.equals(400)
+            // console.log(response.body)
             done();
         })
     })
 })
 
 
-///Delete Category/////
+// ///Delete Category/////
 describe("Delete Category", function(){
-    it ("Success Get Category", function(done){
+    it ("Success Delete Category", function(done){
         api.delete("/categories/" + global.categoryIds)
         .set('Content-Type', 'Application/json')
         .set('Authorization', 'Bearer ' + global.token)
 
         .end(function(error, response){
             expect(response.status).to.equals(200)
-            console.log(response.body)
+            // console.log(response.body)
             done();
         })
     })
+    it ("Failed Delete Category. Request does not contain the authorization header", function(done){
+        api.delete("/categories/" + global.categoryIds)
+        .set('Content-Type', 'Application/json')
+
+        .end(function(error, response){
+            expect(response.status).to.equals(401)
+            done();
+        })
+    })
+
 })
